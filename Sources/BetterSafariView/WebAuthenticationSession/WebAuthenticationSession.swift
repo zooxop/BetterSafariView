@@ -65,9 +65,13 @@ public struct WebAuthenticationSession {
         self.callbackURLScheme = callbackURLScheme
         self.completionHandler = { callbackURL, error in
             if let callbackURL = callbackURL {
+              DispatchQueue.main.async {
                 onCompletion(.success(callbackURL))
+              }
             } else if let error = error {
+              DispatchQueue.main.async {
                 onCompletion(.failure(error))
+              }
             } else {
                 assertionFailure("Both callbackURL and error are nil.")
             }
