@@ -132,8 +132,10 @@ extension WebAuthenticationPresenter {
                 url: representation.url,
                 callbackURLScheme: representation.callbackURLScheme,
                 completionHandler: { (callbackURL, error) in
-                    self.resetItemBinding()
-                    representation.completionHandler(callbackURL, error)
+                    DispatchQueue.main.async {
+                        self.resetItemBinding()
+                        representation.completionHandler(callbackURL, error)
+                    }
                 }
             )
             
