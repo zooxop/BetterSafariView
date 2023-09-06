@@ -133,9 +133,7 @@ extension WebAuthenticationPresenter {
                 callbackURLScheme: representation.callbackURLScheme,
                 completionHandler: { (callbackURL, error) in
                     self.resetItemBinding()
-                    DispatchQueue.main.async {
-                        representation.completionHandler(callbackURL, error)
-                    }
+                    representation.completionHandler(callbackURL, error)
                 }
             )
             
@@ -157,7 +155,9 @@ extension WebAuthenticationPresenter {
         // MARK: Dismissal Handlers
         
         private func resetItemBinding() {
-            parent.item = nil
+            DispatchQueue.main.async {
+                self.parent.item = nil
+            }
         }
         
         #if os(iOS) || os(macOS)
